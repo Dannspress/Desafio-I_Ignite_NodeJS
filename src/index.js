@@ -33,14 +33,16 @@ app.post("/users", (request, response) => {
     return response.status(400).json({ error: "Username is already taken!" });
   }
 
-  users.push({
+  const user = {
     id: uuidv4(),
     name,
     username,
     todos: [],
-  });
+  };
 
-  return response.status(201).json(users);
+  users.push(user);
+
+  return response.status(201).json(user );
 });
 
 app.get("/todos", checksExistsUserAccount, (request, response) => {
@@ -108,7 +110,7 @@ app.delete("/todos/:id", checksExistsUserAccount, (request, response) => {
     return response.status(404).json({ error: "This task doesn't exist!" });
   }
 
-  user.todos.splice(users.indexOf(user), 1);
+  user.todos.splice(todo);
 
   return response.status(204).json();
 });
